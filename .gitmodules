@@ -1,0 +1,6 @@
+[submodule "_includes"]
+	path = _includes
+	url = https://github.com/xforever1313/StaticWebsitesCommon.git
+[submodule "_pretzel"]
+	path = _pretzel
+	url = https://github.com/xforever1313/pretzel.git
