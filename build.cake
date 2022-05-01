@@ -1,6 +1,6 @@
 string target = Argument( "target", "taste" );
 
-const string pretzelExe = "./_pretzel/src/Pretzel/bin/Debug/netcoreapp3.1/Pretzel.dll";
+const string pretzelExe = "./_pretzel/src/Pretzel/bin/Debug/net6.0/Pretzel.dll";
 const string pluginDir = "./_plugins";
 const string categoryPlugin = "./_plugins/Pretzel.Categories.dll";
 const string extensionPlugin = "./_plugins/Pretzel.SethExtensions.dll";
@@ -57,13 +57,13 @@ void BuildPretzel()
 
     // Move Pretzel.Categories.
     {
-        FilePathCollection files = GetFiles( "./_pretzel/src/Pretzel.Categories/bin/Debug/netstandard2.1/Pretzel.Categories.*" );
+        FilePathCollection files = GetFiles( "./_pretzel/src/Pretzel.Categories/bin/Debug/net6.0/Pretzel.Categories.*" );
         CopyFiles( files, Directory( pluginDir ) );
     }
 
     // Move Pretzel.SethExtensions
     {
-        FilePathCollection files = GetFiles( "./_pretzel/src/Pretzel.SethExtensions/bin/Debug/netstandard2.1/Pretzel.SethExtensions.*" );
+        FilePathCollection files = GetFiles( "./_pretzel/src/Pretzel.SethExtensions/bin/Debug/net6.0/Pretzel.SethExtensions.*" );
         CopyFiles( files, Directory( pluginDir ) );
     }
 
