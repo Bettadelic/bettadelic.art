@@ -1,0 +1,177 @@
+@using System
+@using System.Collections.Generic
+@using System.Text
+@using Pretzel.Logic.Templating.Context
+@using Page = Pretzel.Logic.Templating.Context.Page
+
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta content="en-us" http-equiv="Content-Language" />
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    @{
+        StringBuilder tagBuilder = new StringBuilder();
+        foreach( string tag in Model.Page.Tags )
+        {
+            tagBuilder.Append( tag + "," );
+        }
+        if( tagBuilder.Length > 0 )
+        {
+            tagBuilder = tagBuilder.Remove( tagBuilder.Length - 1, 1 );
+            @:<meta name="keywords" content="@tagBuilder.ToString()" />
+        }
+
+        if( Model.Page.Bag.ContainsKey( "description" ) )
+        {
+            @:<meta name="description" content="Bettadelic: @(Model.Page.Bag["description"])" />
+        }
+    }
+
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Blog Feed" />
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Blog Feed" />
+
+    <link rel="shortcut icon" href="/static/favicons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="57x57" href="/static/favicons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/static/favicons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/static/favicons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/static/favicons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/static/favicons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/static/favicons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/static/favicons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/static/favicons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/favicons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/static/favicons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/static/favicons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/static/favicons/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/static/favicons/ms-icon-144x144.png">
+
+    <title>@Model.Title</title>
+
+    <!-- Bootstrap styles -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+   
+    <!-- Font-Awesome -->
+    <link rel="stylesheet" href="/static/css/font-awesome/css/font-awesome.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/static/css/style.css" id="theme-styles">
+</head>
+<body>
+    <header>
+        <div class="widewrapper masthead">
+            <div class="container">
+                <a href="/" id="logo">
+                    <img src="/static/img/logo.jpg" alt="Bettadelic Logo" />
+                </a>
+
+                <div id="mobile=nav-toggle" class="pull-right">
+                    <a href="#" data-toggle="collapse" data-target=".clean-nav .navbar-collapse">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                </div>
+
+                <nav class="pull-right clean-nav">
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav nav-pills navbar-nav">
+                            <li>
+                                <a href="/">Home</a>
+                            </li>
+                            <li>
+                                <a href="/about/">About</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="widewrapper subheader">
+            <div class="container">
+                <div class="clean-breadcrumb">
+                </div>
+                <div class="clean-searchbox">
+                    <iframe
+                        src="https://duckduckgo.com/search.html?site=@(Model.Site.Config["urlnohttp"])&amp;prefill=Search%20Site%20via%20DuckDuckGo"
+                        class="ddg-search"
+                        style="overflow:hidden;padding:0;height:40px;"
+                        frameborder="0">
+                    </iframe>
+                    <noscript>
+                        Search will not work without JavaScript, you will instead search all of DuckDuckGo.
+                    </noscript>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <div class="widewrapper main">
+        <div class="container">
+            @Raw( Model.Content )
+        </div>
+    </div>
+
+    <hr>
+
+    <footer>
+        <div class="widewrapper footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 footer-widget">
+                        <ul>
+                            <li>
+                                <a href="/about/privacy/">Privacy Policy</a>
+                            </li>
+                            <li>
+                                <a href="/about/disclaimer/">Disclaimer</a>
+                            </li>
+                            <li>
+                                <a href="/about/credits/">Credits</a>
+                            </li>
+                            <li>
+                                <a href="/rss.xml">RSS Feed</a>
+                            </li>
+                            <li>
+                                <a href="/atom.xml">ATOM Feed</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 footer-widget">
+                        <div><strong>Follow Us!</strong></div>
+                        <div style="font-size:xx-large;margin-bottom:0px;">
+                            <a href="https://twitter.com/bettadelic" target="_blank" rel="noopener noreferrer nofollow"><i class="fa fa-twitter-square"></i></a>
+                            <a href="https://t.me/bettadelic" target="_blank" rel="noopener noreferrer nofollow"><i class="fa fa-plane"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 footer-widget">
+                        <div><strong>Powered by Algorand</strong></div>
+                        <div>
+                            <a href="https://www.algorand.com/" target="_blank" rel="noopener noreferrer nofollow">
+                                <img src="/static/img/algorand.jpg" alt="Algorand Logo" width="100px" height="100px"/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="widewrapper">
+                <span>Website design by <a href="https://binarytheme.com/bloggo-clean-personal-blog-html5-template-2/" target="_blank" rel="noopener noreferrer nofollow">Binary Theme</a></span> | 
+                <span>Page generated on @DateTime.UtcNow.ToString( "R" )</span>
+            </div>
+        </div>
+        <div class="widewrapper copyright">
+            Copyright &copy; @DateTime.Now.Year Bettadelic
+        </div>
+    </footer>
+
+    <!-- SCRIPTS (at the end so page loads faster) -->
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/modernizr.js"></script>
+</body>
+</html>

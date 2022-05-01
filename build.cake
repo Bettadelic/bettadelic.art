@@ -7,6 +7,8 @@ const string extensionPlugin = "./_plugins/Pretzel.SethExtensions.dll";
 
 DirectoryPath siteDir = Directory( "_site" );
 
+ushort port = Argument<ushort>( "port", 8080 );
+
 // ---------------- Tasks ----------------
 
 Task( "taste" )
@@ -93,7 +95,7 @@ void RunPretzel( string argument, bool abortOnFail )
 
     ProcessSettings settings = new ProcessSettings
     {
-        Arguments = ProcessArgumentBuilder.FromString( $"\"{pretzelExe}\" {argument} --debug" ),
+        Arguments = ProcessArgumentBuilder.FromString( $"\"{pretzelExe}\" {argument} --debug -p {port}" ),
         Silent = false,
         RedirectStandardOutput = abortOnFail,
         RedirectedStandardOutputHandler = onStdOut

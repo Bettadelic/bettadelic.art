@@ -1,0 +1,78 @@
+---
+layout: pagebase
+---
+
+@using Pretzel.Logic.Extensibility.Extensions;
+@using Pretzel.SethExtensions;
+
+<article id="maincontents" class="blog-post">
+    @if( Model.Page.Bag.ContainsKey( "featured_image" ) )
+    {
+        <header>
+            <div class="lead-image">
+                <img class="img-responsive" src="@(Model.Page.Bag["featured_image"])" alt="Featured Image"/>
+            </div>
+        </header>
+    }
+    <div class="body">
+        <h1>@Model.Page.Title</h1>
+        <div class="meta">
+            <i class="fa fa-user"></i> @Model.Page.GetAuthor();
+            <i class="fa fa-calendar"> @Model.Page.Date.ToString( "MMM dd yyyy" )</i>
+        </div>
+        <div id="pagecontents">
+            @Raw( Model.Content )
+        </div>
+    </div>
+</article>
+
+<hr/>
+
+<nav id="posts-nav" style="display: flex; justify-content: space-around;">
+    <div>
+        @if( Model.Previous != null )
+        {
+            <a href="@Model.Previous.Url" title="Previous Post: @Model.Previous.Title">&larr; @Model.Previous.Title</a>
+        }
+    </div>
+    <div>
+        @if( Model.Next != null )
+        {
+            <a href="@Model.Next.Url" title="next Post: @Model.Next.Title">@Model.Next.Title &rarr; </a>
+        }
+    </div>
+</nav>
+
+@if( Model.Page.Tags.Any() )
+{
+    <asid id="tags" class="clearfix">
+        <h2>Tagged as:</h2>
+        <ul class="tags">
+        @foreach( string tag in Model.Page.Tags )
+        {
+            <li><a href="/tag/@SlugifyFilter.Slugify( tag )/">@tag</a></li>
+        }
+        </ul>
+    </asid>
+}
+
+@if( Model.Comments )
+{
+    <h2>Comments:</h2>
+    <aside id="comments" class="comments">
+        <a href="http://disqus.com" class="dsq-brlink" target="_blank" rel="noopener noreferrer nofollow">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_config = function () {
+                this.page.url = '@Model.Site.Config["url"].ToString()@Model.Page.Url';
+            };
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://bettadelic-art.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </aside>
+}
