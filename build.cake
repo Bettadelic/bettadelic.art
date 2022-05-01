@@ -7,9 +7,6 @@ const string extensionPlugin = "./_plugins/Pretzel.SethExtensions.dll";
 
 DirectoryPath siteDir = Directory( "_site" );
 
-#addin nuget:?package=Cake.ArgumentBinder&version=0.6.0
-#load "_cakefiles/AddBetta.cake"
-
 // ---------------- Tasks ----------------
 
 Task( "taste" )
