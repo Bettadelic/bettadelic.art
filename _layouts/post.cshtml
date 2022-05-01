@@ -5,15 +5,22 @@ layout: pagebase
 @using Pretzel.Logic.Extensibility.Extensions;
 @using Pretzel.SethExtensions;
 
+@{
+    string unitName = Model.Bag["unitName"].ToString();
+    string ipfsUrl = Model.Bag["ipfsUrl"].ToString();
+    int width = int.Parse( Model.Bag["width"].ToString() );
+    int height = int.Parse( Model.Bag["height"].ToString() );
+    ulong round = ulong.Parse( Model.Bag["round"].ToString() );
+    ulong assetId = ulong.Parse( Modem.Bag["assetId"].ToString() );
+    string txId = Model.Bag["txId"].ToString();
+}
+
 <article id="maincontents" class="blog-post">
-    @if( Model.Page.Bag.ContainsKey( "featured_image" ) )
-    {
-        <header>
-            <div class="lead-image">
-                <img class="img-responsive" src="@(Model.Page.Bag["featured_image"])" alt="Featured Image"/>
-            </div>
-        </header>
-    }
+    <header>
+        <div class="lead-image">
+            <img class="img-responsive" src="/static/img/bettas/@(unitName).jpg" alt="@unitName"/>
+        </div>
+    </header>
     <div class="body">
         <h1>@Model.Page.Title</h1>
         <div class="meta">
