@@ -13,6 +13,7 @@ urlnohttp: www.bettadelic.art/
 contact: curator@bettadelic.art
 disqus_shortname: bettadelic
 enable_subcategories: false
+github: https://github.com/Bettadelic/bettadelic.art
 
 exclude:
  - .gitignore

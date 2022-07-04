@@ -4,3 +4,5 @@ layout: nil
 
 @using Pretzel.Logic.Templating.Context
 @Include( "htaccess.cstxt", Model, typeof( PageContext ) )
+
+ErrorDocument 404 /404/
