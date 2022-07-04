@@ -5,16 +5,30 @@ layout: pagebase
 @using Pretzel.Logic.Extensibility.Extensions;
 @using Pretzel.SethExtensions;
 
+@{
+    string unitName = Model.Bag["unitName"].ToString();
+    string ipfsUrl = Model.Bag["ipfsUrl"].ToString();
+    int width = int.Parse( Model.Bag["width"].ToString() );
+    int height = int.Parse( Model.Bag["height"].ToString() );
+    ulong round = ulong.Parse( Model.Bag["round"].ToString() );
+    ulong assetId = ulong.Parse( Model.Bag["assetId"].ToString() );
+    string creationTxId = Model.Bag["creationTxId"].ToString();
+    string soldTxId = Model.Bag["soldTxId"].ToString();
+
+    string relUrl = $"/static/bettas/{unitName}.jpg";
+    string absUrl = $"{Model.Site.Config["url"].ToString().TrimEnd('/')}{relUrl}";
+}
+
 <article id="maincontents" class="blog-post">
     <header>
         <div class="lead-image">
-            <img class="img-responsive" src="@(Model.Page.Bag["featured_image"])" alt="Featured Image"/>
+            <img class="img-responsive" src="@relUrl" alt="@unitName"/>
         </div>
     </header>
     <div class="body">
         <h1>@Model.Page.Title</h1>
         <div class="meta">
-            <i class="fa fa-user"></i> @Model.Page.GetAuthor();
+            <i class="fa fa-user"></i> @Model.Page.GetAuthor()
             <i class="fa fa-calendar"> @Model.Page.Date.ToString( "MMM dd yyyy" )</i>
         </div>
         <div id="pagecontents">
