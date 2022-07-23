@@ -1,0 +1,19 @@
+---
+layout: pagebase
+---
+<article id="maincontents">
+    <h1>@Model.Page.Title</h1>
+    <div id="pagecontents">
+        <noscript>
+            JavaScript required to buy NFT's!
+        </noscript>
+        <div id="App">
+        </div>
+    </div>
+</article>
+
+<script src="/static/compiled_ts/store.js"></script>
+<script>
+    let store = new Store();
+    store.Run();
+</script>
