@@ -1,9 +1,16 @@
+// ---------------- Packages ----------------
+
+#tool nuget:?package=Microsoft.TypeScript.Compiler&version=3.1.5
+
+// ---------------- Constants ----------------
+
 string target = Argument( "target", "taste" );
 
 const string pretzelExe = "./_pretzel/src/Pretzel/bin/Debug/net6.0/Pretzel.dll";
 const string pluginDir = "./_plugins";
 const string categoryPlugin = "./_plugins/Pretzel.Categories.dll";
 const string extensionPlugin = "./_plugins/Pretzel.SethExtensions.dll";
+const string storeJsFile = "static/compiled_js/store.js";
 
 DirectoryPath siteDir = Directory( "_site" );
 
@@ -30,6 +37,14 @@ Task( "generate" )
     }
 ).Description( "Builds the site for publishing." );
 
+Task( "build_store" )
+.Does(
+    () =>
+    {
+        BuildStore();
+    }
+).Description( "Builds the TypeScript Store app." );
+
 Task( "build_pretzel" )
 .Does(
     () =>
@@ -39,10 +54,37 @@ Task( "build_pretzel" )
 ).Description( "Compiles Pretzel" );
 
 Task( "build_all" )
+.IsDependentOn( "build_store" )
 .IsDependentOn( "build_pretzel" )
 .IsDependentOn( "taste" );
 
 // ---------------- Functions  ----------------
+
+void CheckStoreDependency()
+{
+    if( FileExists( storeJsFile ) == false )
+    {
+        BuildStore();
+    }
+}
+
+void BuildStore()
+{
+    Information( "Building Store..." );
+
+    FilePath tscPath = Context.Tools.Resolve( "tsc.exe" );
+
+    var processSettings = new ProcessSettings
+    {
+        Arguments = new ProcessArgumentBuilder()
+            .Append( "--build" )
+            .Append( "tsconfig.json" ),
+        WorkingDirectory = "_store"
+    };
+    StartProcess( tscPath, processSettings );
+
+    Information( "Building Store... Done!" );
+}
 
 void BuildPretzel()
 {
@@ -74,6 +116,7 @@ void BuildPretzel()
 
 void RunPretzel( string argument, bool abortOnFail )
 {
+    CheckStoreDependency();
     CheckPretzelDependency();
 
     bool fail = false;
