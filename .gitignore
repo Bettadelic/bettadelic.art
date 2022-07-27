@@ -9,3 +9,5 @@ _site
 public/
 _plugins/
 .cake/
+node_modules/
+compiled_ts/

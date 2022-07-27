@@ -17,6 +17,11 @@ layout: pagebase
 
     string relUrl = $"/static/bettas/{unitName}.jpg";
     string absUrl = $"{Model.Site.Config["url"].ToString().TrimEnd('/')}{relUrl}";
+
+    string buyUrl = $"/buy/index.html?assetid={assetId}";
+
+    string ccString = "CC BY-ND 4.0";
+    string ccUrl = "https://creativecommons.org/licenses/by-nd/4.0/";
 }
 
 <article id="maincontents" class="blog-post">
@@ -30,9 +35,40 @@ layout: pagebase
         <div class="meta">
             <i class="fa fa-user"></i> @Model.Page.GetAuthor()
             <i class="fa fa-calendar"> @Model.Page.Date.ToString( "MMM dd yyyy" )</i>
+            @if( string.IsNullOrWhiteSpace( soldTxId ) )
+            {
+                <a href="@buyUrl"><i class="fa fa-shopping-cart"></i>Buy NFT</a>
+            }
+            else
+            {
+                <a href="@ccUrl" target="_blank" rel="noopener noreferrer nofollow">
+                    <img src="/static/img/cc_by_nd_88x31.png" alt="Licensed under @ccString"/>
+                </a>
+            }
         </div>
         <div id="pagecontents">
-            @Raw( Model.Content )
+            <h2>NFT Information</h2>
+            <ul>
+                <li><strong>Asset ID: </strong> <a href="https://algoexplorer.io/asset/@assetId" target="_blank" rel="noopener noreferrer nofollow">@assetId</a></li>
+                <li><strong>Unit Name:</strong> @unitName</li>
+                <li><strong>IPFS Url:</strong> @ipfsUrl</li>
+                <li><strong>Round NFT Created: </strong> <a href="https://algoexplorer.io/block/@round" target="_blank" rel="noopener noreferrer nofollow">@round</a></li>
+                <li><strong>Creation TX ID:</strong> <a href="https://algoexplorer.io/tx/@creationTxId" target="_blank" rel="noopener noreferrer nofollow">@creationTxId</a></li>
+                @if( string.IsNullOrWhiteSpace( soldTxId ) == false )
+                {
+                    <li><strong>Sold TX ID:</strong> <a href="https://algoexplorer.io/tx/@soldTxId" target="_blank" rel="noopener noreferrer nofollow">@soldTxId</a></li>
+                }
+            </ul>
+
+            @if( string.IsNullOrWhiteSpace( soldTxId ) == false )
+            {
+                <p>NFT was sold!  This image is therefore <a href="@ccUrl" target="_blank" rel="noopener noreferrer nofollow">@ccString</a> for everyone!  Thank you to the buyer!</p>
+            }
+            else
+            {
+                <p>NFT is for sale!  When someone buys it, the image's copyright becomes <a href="@ccUrl" target="_blank" rel="noopener noreferrer nofollow">@ccString</a> for everyone!</p>
+                <p><a href="@buyUrl"><i class="fa fa-shopping-cart"></i> Buy NFT</a></p>
+            }
         </div>
     </div>
 </article>
