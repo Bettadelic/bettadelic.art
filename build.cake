@@ -1,7 +1,3 @@
-// ---------------- Packages ----------------
-
-#tool nuget:?package=Microsoft.TypeScript.Compiler&version=3.1.5
-
 // ---------------- Constants ----------------
 
 string target = Argument( "target", "taste" );
@@ -10,7 +6,10 @@ const string pretzelExe = "./_pretzel/src/Pretzel/bin/Debug/net6.0/Pretzel.dll";
 const string pluginDir = "./_plugins";
 const string categoryPlugin = "./_plugins/Pretzel.Categories.dll";
 const string extensionPlugin = "./_plugins/Pretzel.SethExtensions.dll";
-const string storeJsFile = "static/compiled_js/store.js";
+
+DirectoryPath nodeModulesDir = Directory( "_store/node_modules" );
+DirectoryPath compiledTsDir = Directory( "static/compiled_ts" );
+FilePath storeJsFile = compiledTsDir.CombineWithFilePath( File( "Store.js" ) );
 
 DirectoryPath siteDir = Directory( "_site" );
 
@@ -26,7 +25,6 @@ Task( "taste" )
     }
 ).Description( "Calls pretzel taste to try the site locally" );
 
-
 Task( "generate" )
 .Does(
     () =>
@@ -36,6 +34,14 @@ Task( "generate" )
         RunPretzel( "bake", true );
     }
 ).Description( "Builds the site for publishing." );
+
+Task( "npm_install" )
+.Does(
+    () =>
+    {
+        NpmInstall();
+    }
+);
 
 Task( "build_store" )
 .Does(
@@ -60,10 +66,51 @@ Task( "build_all" )
 
 // ---------------- Functions  ----------------
 
+void CheckForNodeModules()
+{
+    if( DirectoryExists( nodeModulesDir ) == false )
+    {
+        NpmInstall();
+    }
+}
+
+void NpmInstall()
+{
+    Information( "NPM Restore..." );
+    EnsureDirectoryExists( compiledTsDir );
+    CleanDirectory( compiledTsDir );
+
+    FilePath npmPath;
+    if( IsRunningOnWindows() )
+    {
+        npmPath = Context.Tools.Resolve( "npm.cmd" );
+    }
+    else
+    {
+        npmPath = Context.Tools.Resolve( "npm" );
+    }
+
+    var processSettings = new ProcessSettings
+    {
+        Arguments = new ProcessArgumentBuilder()
+            .Append( "install" ),
+        WorkingDirectory = "_store"
+    };
+
+    int exitCode = StartProcess( npmPath, processSettings );
+    if( exitCode != 0 )
+    {
+        throw new CakeException( "NPM restore failed!.  Got exit code: "  + exitCode );
+    }
+
+    Information( "NPM Restore... Done!" );
+}
+
 void CheckStoreDependency()
 {
     if( FileExists( storeJsFile ) == false )
     {
+        CheckForNodeModules();
         BuildStore();
     }
 }
@@ -71,17 +118,31 @@ void CheckStoreDependency()
 void BuildStore()
 {
     Information( "Building Store..." );
+    EnsureDirectoryExists( compiledTsDir );
+    CleanDirectory( compiledTsDir );
 
-    FilePath tscPath = Context.Tools.Resolve( "tsc.exe" );
+    FilePath nodePath;
+    if( IsRunningOnWindows() )
+    {
+        nodePath = Context.Tools.Resolve( "node.exe" );
+    }
+    else
+    {
+        nodePath = Context.Tools.Resolve( "node" );
+    }
 
     var processSettings = new ProcessSettings
     {
         Arguments = new ProcessArgumentBuilder()
-            .Append( "--build" )
-            .Append( "tsconfig.json" ),
+            .Append( "node_modules/webpack-cli/bin/cli.js" ),
         WorkingDirectory = "_store"
     };
-    StartProcess( tscPath, processSettings );
+
+    int exitCode = StartProcess( nodePath, processSettings );
+    if( exitCode != 0 )
+    {
+        throw new CakeException( "Could not build store!  Got exit code: "  + exitCode );
+    }
 
     Information( "Building Store... Done!" );
 }
