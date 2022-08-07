@@ -34,14 +34,20 @@ layout: pagebase
                 <noscript>
                     JavaScript required to connect wallet.
                 </noscript>
-                <button class="btn btn-clean-one" id="connectWalletButton">Connect Wallet</button>
+                <button class="btn btn-clean-one" id="connectWalletButton" onclick="store.ConnectWallet()">Connect Wallet</button>
             </div>
         </div>
     </div>
 </article>
 
-<script src="/static/compiled_ts/store.js"></script>
+<script src="/static/compiled_ts/Store.js"></script>
 <script>
-    let store = new Store();
-    store.Run();
+    var store = null;
+
+    window.onload = function()
+    {
+        console.log("Trying to make store");
+        store = new BettadelicStore.Store();
+        console.log("Store Created!");
+    };
 </script>
