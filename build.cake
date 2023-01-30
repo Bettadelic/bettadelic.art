@@ -35,22 +35,6 @@ Task( "generate" )
     }
 ).Description( "Builds the site for publishing." );
 
-Task( "npm_install" )
-.Does(
-    () =>
-    {
-        NpmInstall();
-    }
-);
-
-Task( "build_store" )
-.Does(
-    () =>
-    {
-        BuildStore();
-    }
-).Description( "Builds the TypeScript Store app." );
-
 Task( "build_pretzel" )
 .Does(
     () =>
@@ -60,92 +44,10 @@ Task( "build_pretzel" )
 ).Description( "Compiles Pretzel" );
 
 Task( "build_all" )
-.IsDependentOn( "build_store" )
 .IsDependentOn( "build_pretzel" )
 .IsDependentOn( "taste" );
 
 // ---------------- Functions  ----------------
-
-void CheckForNodeModules()
-{
-    if( DirectoryExists( nodeModulesDir ) == false )
-    {
-        NpmInstall();
-    }
-}
-
-void NpmInstall()
-{
-    Information( "NPM Restore..." );
-    EnsureDirectoryExists( compiledTsDir );
-    CleanDirectory( compiledTsDir );
-
-    FilePath npmPath;
-    if( IsRunningOnWindows() )
-    {
-        npmPath = Context.Tools.Resolve( "npm.cmd" );
-    }
-    else
-    {
-        npmPath = Context.Tools.Resolve( "npm" );
-    }
-
-    var processSettings = new ProcessSettings
-    {
-        Arguments = new ProcessArgumentBuilder()
-            .Append( "install" ),
-        WorkingDirectory = "_store"
-    };
-
-    int exitCode = StartProcess( npmPath, processSettings );
-    if( exitCode != 0 )
-    {
-        throw new CakeException( "NPM restore failed!.  Got exit code: "  + exitCode );
-    }
-
-    Information( "NPM Restore... Done!" );
-}
-
-void CheckStoreDependency()
-{
-    if( FileExists( storeJsFile ) == false )
-    {
-        CheckForNodeModules();
-        BuildStore();
-    }
-}
-
-void BuildStore()
-{
-    Information( "Building Store..." );
-    EnsureDirectoryExists( compiledTsDir );
-    CleanDirectory( compiledTsDir );
-
-    FilePath nodePath;
-    if( IsRunningOnWindows() )
-    {
-        nodePath = Context.Tools.Resolve( "node.exe" );
-    }
-    else
-    {
-        nodePath = Context.Tools.Resolve( "node" );
-    }
-
-    var processSettings = new ProcessSettings
-    {
-        Arguments = new ProcessArgumentBuilder()
-            .Append( "node_modules/webpack-cli/bin/cli.js" ),
-        WorkingDirectory = "_store"
-    };
-
-    int exitCode = StartProcess( nodePath, processSettings );
-    if( exitCode != 0 )
-    {
-        throw new CakeException( "Could not build store!  Got exit code: "  + exitCode );
-    }
-
-    Information( "Building Store... Done!" );
-}
 
 void BuildPretzel()
 {
@@ -177,7 +79,6 @@ void BuildPretzel()
 
 void RunPretzel( string argument, bool abortOnFail )
 {
-    CheckStoreDependency();
     CheckPretzelDependency();
 
     bool fail = false;
