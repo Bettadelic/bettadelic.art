@@ -98,9 +98,15 @@ void RunPretzel( string argument, bool abortOnFail )
         return line;
     }
 
+    string args = $"\"{pretzelExe}\" {argument} --debug";
+    if( argument != "bake" )
+    {
+        args += $" -p {port}";
+    }
+
     ProcessSettings settings = new ProcessSettings
     {
-        Arguments = ProcessArgumentBuilder.FromString( $"\"{pretzelExe}\" {argument} --debug -p {port}" ),
+        Arguments = ProcessArgumentBuilder.FromString( args ),
         Silent = false,
         RedirectStandardOutput = abortOnFail,
         RedirectedStandardOutputHandler = onStdOut
