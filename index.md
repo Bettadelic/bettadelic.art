@@ -10,4 +10,3 @@ For more about this site, see our [about page](/about/index.html).
 Want your own betta fish in real life?  Check out our [resources page](/resources/index.html).
 
 Otherwise, enjoy the site!
-
