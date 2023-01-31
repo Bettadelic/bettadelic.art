@@ -1,0 +1,48 @@
+---
+layout: pagebase
+---
+
+@using Pretzel.Logic.Templating.Context;
+
+@{
+    const int numberPosts = 20;
+    var recentPosts = Model.Site.Posts.OrderByDescending(
+        p => p.Date
+    ).Take( numberPosts );
+
+    var stack = new Stack<Page>( recentPosts.Count() );
+    foreach( var recent in recentPosts )
+    {
+        stack.Push( recent );
+    }
+}
+
+<article id="maincontents">
+    <h1>@Model.Page.Title</h1>
+
+    <div id="pagecontents">
+        <div id="intro">
+            @Raw( Model.Content )
+        </div>
+        <div class="recentsquares">
+            @for( int i = 0; ( i < 4 ) && ( stack.Any() ); ++i )
+            {
+                <div class="row">
+                    @for( int j = 0; ( j < 6 ) && ( stack.Any() ); ++j )
+                    {
+                        var page = stack.Pop();
+
+                        <div class="col-md-2">
+                            <a href="@(page.Url)">
+                                <img src="/static/bettas/@(page.Bag["unitName"]).jpg"
+                                    alt="@(page.Bag["unitName"])"
+                                    class="thumbnailimage"
+                                />
+                            </a>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</article>
