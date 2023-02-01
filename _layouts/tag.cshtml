@@ -1,0 +1,70 @@
+---
+layout: pagebase
+---
+
+@using Pretzel.Logic.Templating.Context
+@using Page = Pretzel.Logic.Templating.Context.Page
+
+@{
+    object tagName = Model.Page.Bag["tag"];
+    var posts = new List<Page>();
+
+    foreach( var cat in Model.Site.Tags )
+    {
+        if( cat.Name.Equals( tagName ) )
+        {
+            foreach( var post in cat.Posts )
+            {
+                posts.Add( post );
+            }
+        }
+    }
+
+    var stack = new Stack<Page>();
+    for( int i = 0; ( i < 24 ) && (i < posts.Count ); ++i )
+    {
+        stack.Push( posts[i] );
+    }
+}
+
+<article id="maincontents">
+    <h1>Tagged: @tagName</h1>
+
+    <div id="pagecontents">
+        <h2>Recent Bettas</h2>
+        <div class="recentsquares">
+            @for( int i = 0; ( i < 4 ) && ( stack.Any() ); ++i )
+            {
+                <div class="row">
+                    @for( int j = 0; ( j < 6 ) && ( stack.Any() ); ++j )
+                    {
+                        var page = stack.Pop();
+
+                        <div class="col-md-2">
+                            <a href="@(page.Url)">
+                                <img src="/static/bettas/@(page.Bag["unitName"]).jpg"
+                                    alt="@(page.Bag["unitName"])"
+                                    class="thumbnailimage"
+                                />
+                            </a>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <h2>All tagged bettas</h2>
+        <div id="content">
+            <ul>
+                @foreach( var post in posts )
+                {
+                    <li>
+                        <a href="@post.Url"><strong>@post.Bag["unitName"]</strong> - @post.Title</a>
+                        <ul>
+                            <li>@post.Bag["description"]</li>
+                        </ul>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</article>
