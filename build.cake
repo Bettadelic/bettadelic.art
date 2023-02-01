@@ -6,6 +6,7 @@ const string pretzelExe = "./_pretzel/src/Pretzel/bin/Debug/net6.0/Pretzel.dll";
 const string pluginDir = "./_plugins";
 const string categoryPlugin = "./_plugins/Pretzel.Categories.dll";
 const string extensionPlugin = "./_plugins/Pretzel.SethExtensions.dll";
+const string activityPubPlugin = "./_plugins/KristofferStrube.ActivityStreams.dll";
 
 DirectoryPath nodeModulesDir = Directory( "_store/node_modules" );
 DirectoryPath compiledTsDir = Directory( "static/compiled_ts" );
@@ -74,6 +75,12 @@ void BuildPretzel()
         CopyFiles( files, Directory( pluginDir ) );
     }
 
+    // Move ActivityPub
+    {
+        FilePathCollection files = GetFiles( "./_pretzel/src/ActivityStreams/src/KristofferStrube.ActivityStreams/bin/Debug/net6.0/KristofferStrube.ActivityStreams.*" );
+        CopyFiles( files, Directory( pluginDir ) );
+    }
+
     Information( "Building Pretzel... Done!" );
 }
 
@@ -129,7 +136,8 @@ void CheckPretzelDependency()
     if(
         ( FileExists( pretzelExe ) == false ) ||
         ( FileExists( categoryPlugin ) == false ) ||
-        ( FileExists( extensionPlugin ) == false )
+        ( FileExists( extensionPlugin ) == false ) ||
+        ( FileExists( activityPubPlugin ) == false )
     )
     {
         BuildPretzel();
