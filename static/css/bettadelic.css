@@ -17,8 +17,8 @@
 .navbar-collapse {
     /* Float the hamburger menu contents to the right
        to match the icon */
-    float: right;
-    text-align: right;
+    float: right !important;
+    text-align: right !important;
 }
 
 @media (max-width: 767px) {
@@ -32,5 +32,10 @@
 nav.pull-right {
     /* Forces the nav menu to the right */
     float: right !important;
+}
+
+.clean-nav .nav-pills > li > a:hover,
+.clean-nav .nav-pills > li > a:focus {
+  color: rgb(194, 194, 194) !important;
 }
    
