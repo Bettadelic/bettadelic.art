@@ -27,6 +27,7 @@ layout: pagebase
             <i class="fa fa-calendar"> @Model.Page.Date.ToString( "MMM dd yyyy" )</i>
         </div>
         <div id="pagecontents">
+            @Raw( Model.Content )
         </div>
     </div>
 </article>
