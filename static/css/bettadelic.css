@@ -5,3 +5,8 @@
     object-fit:contain;
     margin:7px;
 }
+
+#mobile-nav-toggle .fa
+{
+    color: rgb(91, 98, 104) !important;
+}
