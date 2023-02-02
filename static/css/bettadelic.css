@@ -5,3 +5,32 @@
     object-fit:contain;
     margin:7px;
 }
+
+/* Theme overrides */
+
+#mobile-nav-toggle .fa
+{
+    /* Fix the color of the hamburger menu icon */
+    color: rgb(91, 98, 104) !important;
+}
+
+.navbar-collapse {
+    /* Float the hamburger menu contents to the right
+       to match the icon */
+    float: right;
+    text-align: right;
+}
+
+@media (max-width: 767px) {
+    .clean-nav {
+        /* Make the nav menu not 100% so it fits
+           to the right of the logo */
+        width: initial !important;
+    }
+}
+
+nav.pull-right {
+    /* Forces the nav menu to the right */
+    float: right !important;
+}
+   
