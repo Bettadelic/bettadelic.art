@@ -20,10 +20,10 @@ layout: pagebase
         }
     }
 
-    var stack = new Stack<Page>();
+    var queue = new Queue<Page>();
     for( int i = 0; ( i < 24 ) && (i < posts.Count ); ++i )
     {
-        stack.Push( posts[i] );
+        queue.Enqueue( posts[i] );
     }
 }
 
@@ -33,12 +33,12 @@ layout: pagebase
     <div id="pagecontents">
         <h2>Recent Bettas</h2>
         <div class="recentsquares">
-            @for( int i = 0; ( i < 4 ) && ( stack.Any() ); ++i )
+            @for( int i = 0; ( i < 4 ) && ( queue.Any() ); ++i )
             {
                 <div class="row">
-                    @for( int j = 0; ( j < 6 ) && ( stack.Any() ); ++j )
+                    @for( int j = 0; ( j < 6 ) && ( queue.Any() ); ++j )
                     {
-                        var page = stack.Pop();
+                        var page = queue.Dequeue();
 
                         <div class="col-md-2">
                             <a href="@(page.Url)">

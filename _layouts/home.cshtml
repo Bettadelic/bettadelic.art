@@ -6,7 +6,7 @@ layout: pagebase
 
 @{
     const int numberPosts = 20;
-    var recentPosts = Model.Site.Posts.OrderByDescending(
+    var recentPosts = Model.Site.Posts.OrderBy(
         p => p.Date
     ).Take( numberPosts );
 
