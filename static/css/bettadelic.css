@@ -6,7 +6,17 @@
     margin:7px;
 }
 
+/* Theme overrides */
+
 #mobile-nav-toggle .fa
 {
+    /* Fix the color of the hamburger menu icon */
     color: rgb(91, 98, 104) !important;
+}
+
+.navbar-collapse {
+    /* Float the hamburger menu contents to the right
+       to match the icon */
+    float: right;
+    text-align: right;
 }
