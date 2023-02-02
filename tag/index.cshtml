@@ -3,19 +3,101 @@ layout : pagebase
 title: "All Tags"
 ---
 
-<article id="maincontents">
-    <h1>All Tags</h1>
+@using System.Linq;
+@using System.Text.RegularExpressions;
+@using Pretzel.Logic.Templating.Context;
+@using Page = Pretzel.Logic.Templating.Context.Page;
 
+@{
+    var dateRegex = new Regex( @"^.+20\d{2}$" );
+    var baseTags = new List<Page>();
+    var dateTags = new List<Page>();
+    var algoTags = new List<Page>();
+    var backgroundTags = new List<Page>();
+    var lineTags = new List<Page>();
+    foreach( var sitePage in Model.Site.Pages )
+    {
+        if( sitePage.Bag.ContainsKey( "tag" ) == false )
+        {
+            continue;
+        }
+        else if( dateRegex.IsMatch( sitePage.Title ) )
+        {
+            dateTags.Add( sitePage );
+        }
+        else if( sitePage.Title.EndsWith( "Algorithm" ) )
+        {
+            algoTags.Add( sitePage );
+        }
+        else if( sitePage.Title.EndsWith( "Background" ) )
+        {
+            backgroundTags.Add( sitePage );
+        }
+        else if( sitePage.Title.EndsWith( "Outline" ) )
+        {
+            lineTags.Add( sitePage );
+        }
+        else
+        {
+            baseTags.Add( sitePage );
+        }
+    }
+
+    dateTags.Reverse();
+}
+
+<article id="maincontents">
+    <h1>Browse by Tag</h1>
     <div id="pagecontents">
-        <ul class="tags">
-            @foreach( var sitePage in Model.Site.Pages )
-            {
-                if( sitePage.Bag.ContainsKey( "tag" ) == false )
+
+        <h2>Browse by Base Image</h2>
+        <div class="row">
+            <ul class="tags">
+                @foreach( var sitePage in baseTags )
                 {
-                    continue;
+                    <li><a href="@sitePage.Url">@sitePage.Title</a></li>
                 }
-                <li><a href="@sitePage.Url">@sitePage.Title</a></li>
-            }
-        </ul>
+            </ul>
+        </div>
+
+        <h2>Browse by Background Color</h2>
+        <div class="row">
+            <ul class="tags">
+                @foreach( var sitePage in backgroundTags )
+                {
+                    <li><a href="@sitePage.Url">@sitePage.Title</a></li>
+                }
+            </ul>
+        </div>
+
+        <h2>Browse by Outline Color</h2>
+        <div class="row">
+            <ul class="tags">
+                @foreach( var sitePage in lineTags )
+                {
+                    <li><a href="@sitePage.Url">@sitePage.Title</a></li>
+                }
+            </ul>
+        </div>
+
+        <h2>Browse by Date</h2>
+        <div class = "row">
+            <ul class="tags">
+                @foreach( var sitePage in dateTags )
+                {
+                    <li><a href="@sitePage.Url">@sitePage.Title</a></li>
+                }
+            </ul>
+        </div>
+
+        <h2>Browse by Algorithm</h2>
+        <div class="row">
+            <ul class="tags">
+                @foreach( var sitePage in algoTags )
+                {
+                    <li><a href="@sitePage.Url">@sitePage.Title</a></li>
+                }
+            </ul>
+        </div>
     </div>
 </article>
