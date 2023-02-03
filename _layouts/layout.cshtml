@@ -29,7 +29,29 @@
         if( Model.Page.Bag.ContainsKey( "description" ) )
         {
             @:<meta name="description" content="Bettadelic: @(Model.Page.Bag["description"])" />
+            @:<meta property="og:description" content="Bettadelic: @(Model.Page.Bag["description"])" />
+            @:<meta name="twitter:card" content="@(Model.Page.Bag["description"])">
         }
+    }
+    <meta property="og:title" content="Bettadelic: @Model.Page.Title" />
+    <meta property="og:url" content="@(Model.Site.Config["url"].ToString().TrimEnd('/'))@Model.Page.Url" />
+    <meta property="og:site_name" content="Bettadelic" />
+    <meta name="twitter:site" content="@@bettadelic" />
+    <meta property="og:type" content="article" />
+
+    @if( Model.Page.Bag.ContainsKey( "unitName" ) )
+    {
+        <meta property="og:image" content="https://bettadelic.art/static/bettas/@(Model.Page.Bag["unitName"]).jpg" />
+        <meta name="twitter:image:alt" content="@(Model.Page.Bag["description"])" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="@(Model.Page.Bag["width"])" />
+        <meta property="og:image:height" content="@(Model.Page.Bag["height"])" />
+    }
+    else
+    {
+        <meta property="og:image" content="https://bettadelic.art/static/img/logo.jpg" />
+        <meta name="twitter:image:alt" content="Bettadelic Logo" />
+        <meta property="og:image:type" content="image/jpeg" />
     }
 
     <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Blog Feed" />
