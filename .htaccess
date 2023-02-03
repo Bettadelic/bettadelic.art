@@ -6,3 +6,8 @@ layout: nil
 @Include( "htaccess.cstxt", Model, typeof( PageContext ) )
 
 ErrorDocument 404 /404/
+
+# Redirect webfingers to the bots webfinger page
+RewriteCond %{REQUEST_URI} ^/.well-known/webfinger$
+RewriteCond %{QUERY_STRING} ^resource=acct:@(Model.Site.Config["actpub_username"])@@@(Model.Site.Config["urlnohttp"])$
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/activitypub/webfinger [R=301,L]
