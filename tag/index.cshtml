@@ -3,6 +3,7 @@ layout : pagebase
 title: "All Tags"
 ---
 
+@using System.Globalization;
 @using System.Linq;
 @using System.Text.RegularExpressions;
 @using Pretzel.Logic.Templating.Context;
@@ -43,7 +44,9 @@ title: "All Tags"
         }
     }
 
-    dateTags.Reverse();
+    dateTags = dateTags.OrderByDescending(
+        p => DateTime.ParseExact( p.Title, "MMMM yyyy", CultureInfo.InvariantCulture )
+    ).ToList();
 }
 
 <article id="maincontents">
