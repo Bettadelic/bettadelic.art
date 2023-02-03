@@ -1,6 +1,8 @@
 ---
 layout: home
 title: Home
+tags: [art, betta, color, fish]
+description: "Bettadelic home page"
 ---
 
 Welcome to Bettadelic, a site that shows colorful betta fish!  Below, you'll see our most recent betta art!

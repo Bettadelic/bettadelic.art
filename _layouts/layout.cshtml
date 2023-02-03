@@ -11,15 +11,19 @@
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     @{
-        StringBuilder tagBuilder = new StringBuilder();
-        foreach( string tag in Model.Page.Tags )
+        if( Model.Page.Bag.ContainsKey( "tags" ) )
         {
-            tagBuilder.Append( tag + "," );
-        }
-        if( tagBuilder.Length > 0 )
-        {
-            tagBuilder = tagBuilder.Remove( tagBuilder.Length - 1, 1 );
-            @:<meta name="keywords" content="@tagBuilder.ToString(),bettadelic" />
+            StringBuilder tagBuilder = new StringBuilder();
+            var tags = Model.Page.Bag["tags"] as IEnumerable<string>;
+            foreach( string tag in tags ?? Array.Empty<string>() )
+            {
+                tagBuilder.Append( tag + "," );
+            }
+            if( tagBuilder.Length > 0 )
+            {
+                tagBuilder = tagBuilder.Remove( tagBuilder.Length - 1, 1 );
+                @:<meta name="keywords" content="@tagBuilder.ToString(),bettadelic" />
+            }
         }
 
         if( Model.Page.Bag.ContainsKey( "description" ) )
