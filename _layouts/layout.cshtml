@@ -30,12 +30,12 @@
         {
             @:<meta name="description" content="Bettadelic: @(Model.Page.Bag["description"])" />
             @:<meta property="og:description" content="Bettadelic: @(Model.Page.Bag["description"])" />
-            @:<meta name="twitter:card" content="@(Model.Page.Bag["description"])">
         }
     }
     <meta property="og:title" content="Bettadelic: @Model.Page.Title" />
     <meta property="og:url" content="@(Model.Site.Config["url"].ToString().TrimEnd('/'))@Model.Page.Url" />
     <meta property="og:site_name" content="Bettadelic" />
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@@bettadelic" />
     <meta property="og:type" content="article" />
 
