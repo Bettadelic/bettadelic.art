@@ -1,0 +1,9 @@
+---
+layout: nil
+---
+@{
+    var latestPage = Model.Site.Posts.OrderByDescending(
+        p => p.Date
+    ).Take( 1 ).First();
+}
+@(Model.Site.Config["url"].ToString().TrimEnd('/'))@(latestPage.Url)
