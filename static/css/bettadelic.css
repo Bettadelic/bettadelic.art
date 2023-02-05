@@ -38,4 +38,7 @@ nav.pull-right {
 .clean-nav .nav-pills > li > a:focus {
   color: rgb(194, 194, 194) !important;
 }
-   
+
+#socials li {
+    list-style-type: none;
+}
