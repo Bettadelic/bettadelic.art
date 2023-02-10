@@ -60,7 +60,7 @@ pipeline
                     {
                         sh './Cake/dotnet-cake ./checkout/build.cake --target=build_pretzel'
                         sh './Cake/dotnet-cake ./checkout/build.cake --target=generate'
-                        sh "cp ./checkout/_site/latest*.txt ${pwd()}"
+                        sh "cp ./checkout/_site/latest*.txt '${pwd()}'"
                         archiveArtifacts "latest*.txt";
                     }
                 }
