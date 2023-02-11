@@ -13,7 +13,11 @@ urlnohttp: bettadelic.art/
 contact: curator@bettadelic.art
 disqus_shortname: bettadelic
 enable_subcategories: false
+
+# Social
 github: https://github.com/Bettadelic/bettadelic.art
+telegram: https://t.me/bettadelic_art
+twitter: https://twitter.com/bettadelic
 
 # ActivtyPub:
 actpub_directory: "activitypub"
