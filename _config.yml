@@ -22,6 +22,7 @@ twitter: https://twitter.com/bettadelic
 # ActivtyPub:
 actpub_directory: "activitypub"
 actpub_outbox: true
+actpub_posts_per_outbox_page: 10
 actpub_inbox_url: "https://activitypub.shendrick.net/inboxservice/Inbox/bettadelic"
 actpub_profileurl: index.html
 actpub_username: bettadelic
