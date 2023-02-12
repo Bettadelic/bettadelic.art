@@ -6,4 +6,4 @@ layout: nil
         p => p.Date
     ).Take( 1 ).First();
 }
-@(Model.Site.Config["url"].ToString().TrimEnd('/'))@(latestPage.Url)
+@(Model.Site.Config["url"])@(latestPage.Url)

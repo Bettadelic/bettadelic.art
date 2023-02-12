@@ -11,7 +11,7 @@ layout: pagebase
     int height = int.Parse( Model.Bag["height"].ToString() );
 
     string relUrl = $"/static/bettas/{unitName}.jpg";
-    string absUrl = $"{Model.Site.Config["url"].ToString().TrimEnd('/')}{relUrl}";
+    string absUrl = $"{Model.Site.Config["url"]}{relUrl}";
 }
 
 <article id="maincontents" class="blog-post">

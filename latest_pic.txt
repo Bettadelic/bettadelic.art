@@ -6,4 +6,4 @@ layout: nil
         p => p.Date
     ).Take( 1 ).First();
 }
-@(Model.Site.Config["url"].ToString())static/bettas/@(latestPage.Bag["unitName"]).jpg
+@(Model.Site.Config["url"].ToString())/static/bettas/@(latestPage.Bag["unitName"]).jpg
