@@ -1,0 +1,39 @@
+---
+layout: nil
+---
+@using System.Globalization;
+@using System.Linq;
+@using System.Text.RegularExpressions;
+@using Pretzel.Logic.Templating.Context;
+@using Page = Pretzel.Logic.Templating.Context.Page;
+@{
+    var tagDict = new Dictionary<string, int>();
+    foreach( var sitePage in Model.Site.Posts )
+    {
+        if( sitePage.Bag.ContainsKey( "tags" ) == false )
+        {
+            continue;
+        }
+        foreach( string tag in sitePage.Tags )
+        {
+            if( tagDict.ContainsKey( tag ) == false )
+            {
+                tagDict[tag] = 1;
+            }
+            else
+            {
+                tagDict[tag] = tagDict[tag] + 1;
+            }
+        }
+    }
+}
+# HELP bettadelic_post_total Total number of bettas that have been posted
+# TYPE bettadelic_post_total counter
+bettadelic_post_total @Model.Site.Posts.Count()
+# HELP bettadelic_tag_total Total number of posts that fit in a particular tag.
+# TYPE bettadelic_tag_total counter
+@foreach( var tagCount in tagDict )
+{
+@:bettadelic_tag_total{tag="@(tagCount.Key)"} @(tagCount.Value)
+}
+    
