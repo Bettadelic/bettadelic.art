@@ -7,6 +7,8 @@ layout: nil
 @using Pretzel.Logic.Templating.Context;
 @using Page = Pretzel.Logic.Templating.Context.Page;
 @{
+    var dateRegex = new Regex( @"^.+20\d{2}$", RegexOptions.Compiled | RegexOptions.ExplicitCapture );
+
     var tagDict = new Dictionary<string, int>();
     foreach( var sitePage in Model.Site.Posts )
     {
@@ -26,14 +28,61 @@ layout: nil
             }
         }
     }
+
+    string GetCategory( string tagName )
+    {
+        if( dateRegex.IsMatch( tagName ) )
+        {
+            return "date";
+        }
+        else if( tagName.EndsWith( "Algorithm" ) )
+        {
+            return "algorithm";
+        }
+        else if( tagName.EndsWith( "Background" ) )
+        {
+            return "background";
+        }
+        else if( tagName.EndsWith( "Outline" ) )
+        {
+            return "outline";
+        }
+        else
+        {
+            return "base_image";
+        }
+    }
+
+    string GetDisplayName( string tagName )
+    {
+        if( dateRegex.IsMatch( tagName ) )
+        {
+            return tagName;
+        }
+        else if( tagName.EndsWith( "Algorithm" ) )
+        {
+            return tagName.Substring( 0, tagName.Length - " Algorithm".Length );
+        }
+        else if( tagName.EndsWith( "Background" ) )
+        {
+            return tagName.Substring( 0, tagName.Length - " Background".Length );
+        }
+        else if( tagName.EndsWith( "Outline" ) )
+        {
+            return tagName.Substring( 0, tagName.Length - " Outline".Length );
+        }
+        else
+        {
+            return tagName;
+        }
+    }
 }
 # HELP bettadelic_post_total Total number of bettas that have been posted
 # TYPE bettadelic_post_total counter
 bettadelic_post_total @Model.Site.Posts.Count()
-# HELP bettadelic_tag_total Total number of posts that fit in a particular tag.
+# HELP bettadelic_tag_total Total number of posts that fit in a particular tag. tag is the full tag name, category is what group of tags it is a part of, name_without_category is the tag name with the category removed.
 # TYPE bettadelic_tag_total counter
 @foreach( var tagCount in tagDict )
 {
-@:bettadelic_tag_total{tag="@(tagCount.Key)"} @(tagCount.Value)
+@:bettadelic_tag_total{tag="@(tagCount.Key)",category="@(GetCategory(tagCount.Key))",name_without_category="@(GetDisplayName(tagCount.Key))"} @(tagCount.Value)
 }
-    
