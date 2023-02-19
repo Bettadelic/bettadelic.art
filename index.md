@@ -18,5 +18,6 @@ Do you want to be notified any time a new Betta gets posted?  You can follow us 
 * [RSS](/rss.xml)
 * [Atom](/atom.xml)
 * Mastodon - Type "@@@(Model.Site.Config["actpub_username"])@@@(Model.Site.Config["urlnohttp"])" in your search bar on your Mastodon instance.
+* [IRC](https://web.libera.chat/?channel=#bettadelic)
 
 Otherwise, enjoy the site!
