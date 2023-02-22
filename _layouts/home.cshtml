@@ -5,7 +5,7 @@ layout: pagebase
 @using Pretzel.Logic.Templating.Context;
 
 @{
-    const int numberPosts = 20;
+    const int numberPosts = 24;
     var recentPosts = Model.Site.Posts.OrderBy(
         p => p.Date
     ).Take( numberPosts );
