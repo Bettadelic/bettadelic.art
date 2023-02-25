@@ -6,14 +6,14 @@ layout: pagebase
 
 @{
     const int numberPosts = 24;
-    var recentPosts = Model.Site.Posts.OrderBy(
+    var recentPosts = Model.Site.Posts.OrderByDescending(
         p => p.Date
     ).Take( numberPosts );
 
-    var stack = new Stack<Page>( recentPosts.Count() );
+    var queue = new Queue<Page>( recentPosts.Count() );
     foreach( var recent in recentPosts )
     {
-        stack.Push( recent );
+        queue.Enqueue( recent );
     }
 }
 
@@ -25,12 +25,12 @@ layout: pagebase
             @Raw( Model.Content )
         </div>
         <div class="recentsquares">
-            @for( int i = 0; ( i < 4 ) && ( stack.Any() ); ++i )
+            @for( int i = 0; ( i < 4 ) && ( queue.Any() ); ++i )
             {
                 <div class="row">
-                    @for( int j = 0; ( j < 6 ) && ( stack.Any() ); ++j )
+                    @for( int j = 0; ( j < 6 ) && ( queue.Any() ); ++j )
                     {
-                        var page = stack.Pop();
+                        var page = queue.Dequeue();
 
                         <div class="col-md-2">
                             <a href="@(page.Url)">
