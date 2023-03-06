@@ -18,6 +18,7 @@ enable_subcategories: false
 github: https://github.com/Bettadelic/bettadelic.art
 telegram: https://t.me/bettadelic_art
 twitter: https://twitter.com/bettadelic
+deviantart: https://www.deviantart.com/bettadelic
 
 # ActivtyPub:
 actpub_directory: "activitypub"

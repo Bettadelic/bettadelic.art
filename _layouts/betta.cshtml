@@ -31,7 +31,9 @@ layout: pagebase
             @if( Model.Page.Bag.ContainsKey( "deviantart" ) )
             {
                 <p>
-                    <a href="@(Model.Page.Bag["deviantart"])" target="_blank" rel="noopener noreferrer nofollow">View on DeviantArt</a>
+                    <a href="@(Model.Page.Bag["deviantart"])" target="_blank" rel="noopener noreferrer nofollow">
+                        <i class="fa-brands fa-deviantart"></i> View on DeviantArt
+                    </a>
                 </p>
             }
         </div>

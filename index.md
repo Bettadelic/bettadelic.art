@@ -13,6 +13,7 @@ Want your own betta fish in real life?  Check out our [resources page](/resource
 
 Do you want to be notified any time a new Betta gets posted?  You can follow us in the following places:
 
+* [DeviantArt](@Model.Site.Config["deviantart"])
 * [Telegram](@Model.Site.Config["telegram"])
 * [Twitter](@Model.Site.Config["twitter"])
 * [RSS](/rss.xml)
