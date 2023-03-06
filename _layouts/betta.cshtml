@@ -28,6 +28,12 @@ layout: pagebase
         </div>
         <div id="pagecontents">
             @Raw( Model.Content )
+            @if( Model.Page.Bag.ContainsKey( "deviantart" ) )
+            {
+                <p>
+                    <a href="@(Model.Page.Bag["deviantart"])" target="_blank" rel="noopener noreferrer nofollow">View on DeviantArt</a>
+                </p>
+            }
         </div>
     </div>
 </article>
