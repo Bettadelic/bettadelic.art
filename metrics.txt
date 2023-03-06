@@ -35,9 +35,9 @@ layout: nil
         {
             return "date";
         }
-        else if( tagName.EndsWith( "Algorithm" ) )
+        else if( tagName.EndsWith( "Pattern" ) )
         {
-            return "algorithm";
+            return "pattern";
         }
         else if( tagName.EndsWith( "Background" ) )
         {
@@ -59,9 +59,9 @@ layout: nil
         {
             return tagName;
         }
-        else if( tagName.EndsWith( "Algorithm" ) )
+        else if( tagName.EndsWith( "Pattern" ) )
         {
-            return tagName.Substring( 0, tagName.Length - " Algorithm".Length );
+            return tagName.Substring( 0, tagName.Length - " Pattern".Length );
         }
         else if( tagName.EndsWith( "Background" ) )
         {
