@@ -28,34 +28,34 @@ Once we're happy with the base image, that's when the base image gets fed into a
 
 The fill pattern colors a color area a single, randomly chosen, color.  Think of it like the paint can option in MS Paint.
 
-[Click to see all bettas with a fill pattern](/tag/fill-pattern/index.html)
+* [Click to see all bettas with a fill pattern.](/tag/fill-pattern/index.html)
 
 #### Edge
 
 The edge pattern tries to do a spiral inwards for a color area by hugging the edge of the color area as much as possible, while slowly going inwards.  From a starting spot, the algorithm goes around the edge of the color area, coloring any pixels it hits along the way that has not been colored yet.  Once it reaches the starting spot, or it hits a dead end, a new starting spot and color is chosen and the cycle repeats.
 
-[Click to see all bettas with an edge pattern](/tag/edge-pattern/index.html)
+* [Click to see all bettas with an edge pattern.](/tag/edge-pattern/index.html)
 
 #### Snake
 
 The snake pattern is an early (and incorrect) implementation of the edge pattern; but it looked cool so we kept it.  Its a little tough to describe, but it starts out by hugging the edge of an area to color, but once it reaches the other side, it turns around and heads the other direction until it reaches the original side, and goes back the other way.  The result is a snaking pattern.  Once the pattern reaches the starting point or a dead end, a new starting spot and color is chosen and the cycle repeats.
 
-[Click to see all bettas with a snake pattern](/tag/snake-pattern/index.html)
+* [Click to see all bettas with a snake pattern.](/tag/snake-pattern/index.html)
 
 #### Stripe
 
 The stripe pattern makes each color area stripped, where each row or column or diagonal is a randomly chosen color.  The direction of the stripes (horizontal, vertical, or diagonal) is also randomly chosen.
 
-[Click to see all bettas with a stripe pattern](/tag/stripe-pattern/index.html)
+* [Click to see all bettas with a stripe pattern.](/tag/stripe-pattern/index.html)
 
 #### Noise
 
 The noise pattern is simple, in that each and every pixel that should be colored in is randomized.  The effect makes it look like static, or a bunch of noise.
 
-[Click to see all bettas with a noise pattern](/tag/noise-pattern/index.html)
+* [Click to see all bettas with a noise pattern.](/tag/noise-pattern/index.html)
 
 #### Mixed
 
 The mixed pattern chooses a random pattern for each separate area to color.  The end result could have a betta with stripes, static, and solid colors all in one!
 
-[Click to see all bettas with a mixed pattern](/tag/mixed-pattern/index.html)
+* [Click to see all bettas with a mixed pattern.](/tag/mixed-pattern/index.html)
