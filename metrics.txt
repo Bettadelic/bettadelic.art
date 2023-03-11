@@ -2,6 +2,7 @@
 layout: nil
 ---
 @using System.Globalization;
+@using System.IO;
 @using System.Linq;
 @using System.Text.RegularExpressions;
 @using Pretzel.Logic.Templating.Context;
@@ -77,9 +78,21 @@ layout: nil
         }
     }
 }
+@{
+    string rootDir = Model.Site.SourceFolder;
+    DirectoryInfo imageDir = new DirectoryInfo( Path.Combine( "static", "bettas" ) );
+    long totalFileSize = 0;
+    foreach( FileInfo file in imageDir.EnumerateFiles() )
+    {
+        totalFileSize += file.Length;
+    }
+}
 # HELP bettadelic_post_total Total number of bettas that have been posted
 # TYPE bettadelic_post_total counter
 bettadelic_post_total @Model.Site.Posts.Count()
+# HELP bettadelic_image_size_total Total file size all images take up in bytes.
+# TYPE bettadelic_image_size_total gauge
+bettadelic_image_size_total @totalFileSize
 # HELP bettadelic_tag_total Total number of posts that fit in a particular tag. tag is the full tag name, category is what group of tags it is a part of, name_without_category is the tag name with the category removed.
 # TYPE bettadelic_tag_total counter
 @foreach( var tagCount in tagDict )
