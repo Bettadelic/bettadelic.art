@@ -14,7 +14,8 @@ title: "All Tags"
     var baseTags = new List<Page>();
     var dateTags = new List<Page>();
     var algoTags = new List<Page>();
-    var backgroundTags = new List<Page>();
+    var backgroundColorTags = new List<Page>();
+    var backgroundTypeTags = new List<Page>();
     var lineTags = new List<Page>();
     foreach( var sitePage in Model.Site.Pages )
     {
@@ -26,13 +27,17 @@ title: "All Tags"
         {
             dateTags.Add( sitePage );
         }
+        else if( sitePage.Title.EndsWith( "Background Pattern" ) )
+        {
+            backgroundTypeTags.Add( sitePage );
+        }
         else if( sitePage.Title.EndsWith( "Pattern" ) )
         {
             algoTags.Add( sitePage );
         }
         else if( sitePage.Title.EndsWith( "Background" ) )
         {
-            backgroundTags.Add( sitePage );
+            backgroundColorTags.Add( sitePage );
         }
         else if( sitePage.Title.EndsWith( "Outline" ) )
         {
@@ -66,7 +71,17 @@ title: "All Tags"
         <h2>Browse by Background Color</h2>
         <div class="row">
             <ul class="tags">
-                @foreach( var sitePage in backgroundTags )
+                @foreach( var sitePage in backgroundColorTags )
+                {
+                    <li><a href="@sitePage.Url">@sitePage.Title</a></li>
+                }
+            </ul>
+        </div>
+
+        <h2>Browse by Background Pattern</h2>
+        <div class="row">
+            <ul class="tags">
+                @foreach( var sitePage in backgroundTypeTags )
                 {
                     <li><a href="@sitePage.Url">@sitePage.Title</a></li>
                 }
