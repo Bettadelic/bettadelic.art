@@ -59,3 +59,31 @@ The noise pattern is simple, in that each and every pixel that should be colored
 The mixed pattern chooses a random pattern for each separate area to color.  The end result could have a Betta with stripes, static, and solid colors all in one!
 
 * [Click to see all Bettas with a mixed pattern.](/tag/mixed-pattern/index.html)
+
+### Types of Background Patterns
+
+In addition to a pattern going on the betta fish itself, the background also has a pattern.
+
+#### Solid
+
+The Solid background is a background of a single, randomly chosen, color.  Can't get any easier than that!
+
+* [Click to see all Bettas with a solid background pattern.](/tag/solid-background-pattern/index.html)
+
+#### Halo
+
+This background starts from a randomly chosen color and shifts to a different color before shifting back again.  The end-result resembles a halo around the betta fish.
+
+* [Click to see all Bettas with a halo background pattern.](/tag/halo-background-pattern/index.html)
+
+#### Multisquare
+
+This background is similar to the Halo background, but two parameters are reversed during the calculation.  This was found by accident when trying to create the halo pattern.  The end-result is a fish that sit on top of a tower of multiple squares.
+
+* [Click to see all Bettas with a multisquare background pattern.](/tag/multisquare-background-pattern/index.html)
+
+#### Plus
+
+By tweaking the Halo patterns algorithm a bit, we get a pattern that looks like a plus.  Like the Multisquare, this pattern was found by accident when trying to create the halo pattern.  The end-result is a background that looks like a plus sign.
+
+* [Click to see all Bettas with a plus background pattern.](/tag/plus-background-pattern/index.html)
