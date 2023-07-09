@@ -87,3 +87,9 @@ This background is similar to the Halo background, but two parameters are revers
 By tweaking the Halo patterns algorithm a bit, we get a pattern that looks like a plus.  Like the Multisquare, this pattern was found by accident when trying to create the halo pattern.  The end-result is a background that looks like a plus sign.
 
 * [Click to see all Bettas with a plus background pattern.](/tag/plus-background-pattern/index.html)
+
+#### Gradient
+
+The background pattern starts with a base color, and then it randomly increases or decreases each pixel's color (Red, Green, Blue) in one direction for each row or column in the background until it reaches 0 or 255.  Then goes the other direction until it reaches 0 or 255 and repeats.  However, there is a small chance each time a color is being incremented or decremented where the color will change direction, thus ensuring the patterns is not repeated over and over again.
+
+* [Click to see all Bettas with a gradient background pattern.](/tag/gradient-background-pattern/index.html)
