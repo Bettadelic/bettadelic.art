@@ -36,6 +36,14 @@ layout: pagebase
                     </a>
                 </p>
             }
+            @if( Model.Page.Bag.ContainsKey( "pixelfed" ) )
+            {
+                <p>
+                    <a href="@(Model.Page.Bag["pixelfed"])" target="_blank" rel="noopener noreferrer nofollow">
+                        <i class="fa-solid fa-camera"></i> View on Pixelfed
+                    </a>
+                </p>
+            }
         </div>
     </div>
 </article>
