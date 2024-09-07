@@ -1,0 +1,19 @@
+{
+    "subject":"acct:bettadelic@bettadelic.art",
+    "links":[
+        {
+            "rel":"self","type":"application/activity\u002Bjson",
+            "href":"https://photos.thegayborhood.club/users/bettadelic"
+        },
+        {
+            "rel":"http://webfinger.net/rel/profile-page",
+            "type":"text/html",
+            "href":"https://photos.thegayborhood.club/bettadelic"
+        },
+        {
+            "rel":"http://webfinger.net/rel/avatar",
+            "type":"image/jpg",
+            "href":"https://bettadelic.art/static/img/logo.jpg"
+        }
+    ]
+}

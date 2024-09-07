@@ -18,7 +18,8 @@ Do you want to be notified any time a new Betta gets posted?  You can follow us 
 * [Twitter](@Model.Site.Config["twitter"])
 * [RSS](/rss.xml)
 * [Atom](/atom.xml)
-* Mastodon - Type "@@@(Model.Site.Config["actpub_username"])@@@(Model.Site.Config["urlnohttp"])" in your search bar on your Mastodon instance.
+* [Pixelfed](@Model.Site.Config["pixelfed"])
+* Mastodon - Type "@@@(Model.Site.Config["pixelfed_id"])" in your search bar on your Mastodon instance.
 * [IRC](https://web.libera.chat/?channel=#bettadelic)
 
 Otherwise, enjoy the site!

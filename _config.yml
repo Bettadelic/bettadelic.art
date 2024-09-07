@@ -20,6 +20,8 @@ telegram: https://t.me/bettadelic_art
 twitter: https://twitter.com/bettadelic
 deviantart: https://www.deviantart.com/bettadelic
 pixelfed: https://photos.thegayborhood.club/bettadelic
+pixelfed_id: bettadelic@photos.thegayborhood.club
+webfinger: bettadelic@bettadelic.art
 
 exclude:
  - .gitignore
