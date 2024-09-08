@@ -65,19 +65,19 @@ void BuildPretzel()
 
     // Move Pretzel.Categories.
     {
-        FilePathCollection files = GetFiles( "./_pretzel/src/Pretzel.Categories/bin/Debug/net6.0/Pretzel.Categories.*" );
+        FilePathCollection files = GetFiles( "./_pretzel/src/Pretzel.Categories/bin/Debug/net8.0/Pretzel.Categories.*" );
         CopyFiles( files, Directory( pluginDir ) );
     }
 
     // Move Pretzel.SethExtensions
     {
-        FilePathCollection files = GetFiles( "./_pretzel/src/Pretzel.SethExtensions/bin/Debug/net6.0/Pretzel.SethExtensions.*" );
+        FilePathCollection files = GetFiles( "./_pretzel/src/Pretzel.SethExtensions/bin/Debug/net8.0/Pretzel.SethExtensions.*" );
         CopyFiles( files, Directory( pluginDir ) );
     }
 
     // Move ActivityPub
     {
-        FilePathCollection files = GetFiles( "./_pretzel/src/ActivityStreams/src/KristofferStrube.ActivityStreams/bin/Debug/net6.0/KristofferStrube.ActivityStreams.*" );
+        FilePathCollection files = GetFiles( "./_pretzel/src/ActivityStreams/src/KristofferStrube.ActivityStreams/bin/Debug/net8.0/KristofferStrube.ActivityStreams.*" );
         CopyFiles( files, Directory( pluginDir ) );
     }
 
