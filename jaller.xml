@@ -140,16 +140,16 @@ layout: nil
                                     <tag>@tag</tag>
                                   }
                                 </tags>
-                                <details>
-                                    @if( page.Bag.ContainsKey( "deviantart" ) )
-                                    {
-                                        @:* [View on DeviantArt](@page.Bag["deviantart"])&#xA;&#xD;&#xA;&#xD;
-                                    }
-                                    @if( page.Bag.ContainsKey( "pixelfed" ) )
-                                    {
-                                        @:* [View on Pixelfed](@page.Bag["pixelfed"])&#xA;&#xD;&#xA;&#xD;
-                                    }
-                                </details>
+<details>
+    @if( page.Bag.ContainsKey( "deviantart" ) )
+    {
+@:* [View on DeviantArt](@page.Bag["deviantart"])&#xA;&#xD;&#xA;&#xD;
+    }
+    @if( page.Bag.ContainsKey( "pixelfed" ) )
+    {
+@:* [View on Pixelfed](@page.Bag["pixelfed"])&#xA;&#xD;&#xA;&#xD;
+    }
+</details>
                             </file>
                         }
                     </folder>
