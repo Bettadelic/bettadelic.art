@@ -34,3 +34,5 @@ exclude:
  - tools
  - .cake
  - Readme.md
+ - _jenkinsfile.groovy
+ - _ipfs_sync.groovy
