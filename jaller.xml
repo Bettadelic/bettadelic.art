@@ -1,0 +1,160 @@
+---
+layout: nil
+---
+
+@using System.IO;
+@using System.Xml.Linq;
+@using Pretzel.Logic.Extensibility.Extensions;
+@using Pretzel.Logic.Templating.Context;
+@using Pretzel.SethExtensions;
+
+@{
+    var ipfsHashes = new Dictionary<string, string>();
+    var ipfsHashXmlFile = new FileInfo( Path.Combine( Model.Site.SourceFolder, "ipfs_hashes.xml" ) );
+    var xmlDoc = XDocument.Load( ipfsHashXmlFile.FullName );
+    XElement root = xmlDoc.Root;
+
+    foreach( XElement ipfsNode in root.Elements() )
+    {
+        if( ipfsNode.Name is null )
+        {
+            Console.WriteLine( $"\t- WARNING! Found an IPFS file element whose name was null." );
+            continue;
+        }
+        else if( "File".Equals( ipfsNode.Name.LocalName ) == false )
+        {
+            Console.WriteLine( $"\t- WARNING! Found an IPFS file element whose name is not 'File', but named '{ipfsNode.Name.LocalName}'." );
+            continue;
+        }
+
+        string fileId = null;
+        string cid = null;
+
+        foreach( XAttribute attr in ipfsNode.Attributes() )
+        {
+            if( "name" != attr.Name )
+            {
+                Console.WriteLine( $"\t- WARNING! Found an IPFS file attribute whose name is not 'name', but named '{attr.Name}'." );
+                continue;
+            }
+            fileId = attr.Value;
+        }
+
+        if( fileId is null )
+        {
+            Console.WriteLine( $"\t- Warning, found a null IPFS file name." );
+            continue;
+        }
+
+        foreach( XElement fileNode in ipfsNode.Elements() )
+        {
+            if( fileNode.Name is null )
+            {
+                Console.WriteLine( $"\t- WARNING! Found an IPFS file child element whose name was null." );
+                continue;
+            }
+            else if( "IpfsHash".Equals( fileNode.Name.LocalName ) == false )
+            {
+                Console.WriteLine( $"\t- WARNING! Found an IPFS file element whose name is not 'IpfsHash', but named '{fileNode.Name.LocalName}'." );
+                continue;
+            }
+
+            cid = fileNode.Value;
+        }
+
+        if( cid is null )
+        {
+            Console.WriteLine( $"\t- Warning, found a null IPFS CID." );
+            continue;
+        }
+
+        ipfsHashes[fileId] = cid;
+    }
+}
+@{
+    var pageByDate = new Dictionary<int, Dictionary<int, List<Page>>>();
+    foreach( Page page in Model.Site.Posts )
+    {
+        if( pageByDate.ContainsKey( page.Date.Year ) == false )
+        {
+            pageByDate[page.Date.Year] = new Dictionary<int, List<Page>>();
+        }
+
+        if( pageByDate[page.Date.Year].ContainsKey( page.Date.Month ) == false )
+        {
+            pageByDate[page.Date.Year][page.Date.Month] = new List<Page>();
+        }
+
+        pageByDate[page.Date.Year][page.Date.Month].Add( page );
+    }
+}
+@{
+    var monthNames = new Dictionary<int, string>();
+    monthNames[1] = "January";
+    monthNames[2] = "February";
+    monthNames[3] = "March";
+    monthNames[4] = "April";
+    monthNames[5] = "May";
+    monthNames[6] = "June";
+    monthNames[7] = "July";
+    monthNames[8] = "August";
+    monthNames[9] = "September";
+    monthNames[10] = "October";
+    monthNames[11] = "November";
+    monthNames[12] = "December";
+}
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<JallerFiles version="1">
+    <folder name="Bettadelic">
+        <downloadable>Public</downloadable>
+        <metadata>Public</metadata>
+        @foreach( var year in pageByDate.Keys.OrderBy( i => i ) )
+        {
+            <folder name="@year">
+                <downloadable>Public</downloadable>
+                <metadata>Public</metadata>
+                @foreach( var month in pageByDate[year].Keys.OrderBy( i => i ) )
+                {
+                    <folder name="@monthNames[month]">
+                        <downloadable>Public</downloadable>
+                        <metadata>Public</metadata>
+                        @foreach( var page in pageByDate[year][month].OrderBy( p => p.Date ) )
+                        {
+                            string fileName = page.Bag["unitName"] + ".jpg";
+                            @if( ipfsHashes.ContainsKey( fileName ) == false )
+                            {
+                                continue;
+                            }
+
+                            <file name="@fileName">
+                                <cid>@ipfsHashes[fileName]</cid>
+                                <title>@page.Bag["title"]</title>
+                                <description>@page.Bag["description"]</description>
+                                <downloadable>Public</downloadable>
+                                <metadata>Public</metadata>
+                                <mimetype />
+                                <tags>
+                                  <tag>bettadelic</tag>
+                                  @foreach( string tag in @page.Tags )
+                                  {
+                                    <tag>@tag</tag>
+                                  }
+                                </tags>
+                                <details>
+                                    @if( page.Bag.ContainsKey( "deviantart" ) )
+                                    {
+                                        @:* [View on DeviantArt](@page.Bag["deviantart"])&#xA;&#xD;&#xA;&#xD;
+                                    }
+                                    @if( page.Bag.ContainsKey( "pixelfed" ) )
+                                    {
+                                        @:* [View on Pixelfed](@page.Bag["pixelfed"])&#xA;&#xD;&#xA;&#xD;
+                                    }
+                                </details>
+                            </file>
+                        }
+                    </folder>
+                }
+            </folder>
+        }
+    </folder>
+</JallerFiles>
